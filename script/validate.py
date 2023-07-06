@@ -51,10 +51,8 @@ class Activity():
                 for instance in client.list_instances()[0]:
                     if instance.display_name == bigtable_id:
                         tables = instance.list_tables()
-                        print("Listing tables in current project...")
                         if tables != []:
                             for tbl in tables:
-                                print(tbl.table_id)
                                 if tbl.table_id == expected_result:
                                     is_present=True
                                     actual=expected_result
@@ -90,15 +88,12 @@ class Activity():
                 for instance in client.list_instances()[0]:
                     if instance.display_name == bigtable_id:
                         tables = instance.list_tables()
-                        print("Listing tables in current project...")
                         if tables != []:
                             for tbl in tables:
-                                print(tbl.table_id)
                                 if tbl.table_id == bigtable_table_id:
                                     table = instance.table(tbl.table_id)
                                     column_families = table.list_column_families()
                                     for column_family in column_families:
-                                        print(column_family)
                                         if column_family == expected_result1:
                                             is_present=True
                                             actual=expected_result1 + expected_result2
@@ -133,7 +128,6 @@ class Activity():
                 buckets = client.list_buckets()
 
                 for bucket in buckets:
-                    print(bucket.name)
                     if bucket.name == expected_result:
                         is_present=True
                         actual=expected_result
