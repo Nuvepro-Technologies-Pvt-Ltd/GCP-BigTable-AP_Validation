@@ -18,7 +18,7 @@ class Activity():
             is_present = False
             actual = 'BigTable Instance name is not '+ expected_result
             try:
-                client = storage.Client(credentials=credentials, project=project_id)
+                client = storage.Client(credentials=credentials, project=project_id, admin=True)
                 #client = bigtable.Client(project=project_id, admin=True)
                 for instance_local in client.list_instances()[0]:
                     if instance_local.display_name == expected_result:
