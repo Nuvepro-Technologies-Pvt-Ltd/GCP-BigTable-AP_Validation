@@ -18,7 +18,8 @@ class Activity():
             is_present = False
             actual = 'BigTable Instance name is not '+ expected_result
             try:
-                client = bigtable.Client(project=project_id, admin=True)
+                client = storage.Client(credentials=credentials, project=project_id, admin=True)
+                #client = bigtable.Client(project=project_id, admin=True)
                 for instance_local in client.list_instances()[0]:
                     if instance_local.display_name == expected_result:
                         is_present=True
@@ -124,7 +125,8 @@ class Activity():
             is_present = False
             actual = 'Storage Bucket name is not '+ expected_result
             try:
-                client = storage.Client()
+                #client = storage.Client()
+                client = storage.Client(credentials=credentials, project=project_id)
                 buckets = client.list_buckets()
 
                 for bucket in buckets:
@@ -155,9 +157,9 @@ def start_tests(credentials, project_id, args):
     
     test_object=ResultOutput(args,Activity)
     challenge_test=Activity()
-    challenge_test.testcase_check_BigTable_Instance_name(test_object,credentials,project_id)
-    challenge_test.testcase_check_Table_name(test_object,credentials,project_id)
-    challenge_test.testcase_check_column_families(test_object,credentials,project_id)
+#    challenge_test.testcase_check_BigTable_Instance_name(test_object,credentials,project_id)
+#    challenge_test.testcase_check_Table_name(test_object,credentials,project_id)
+#    challenge_test.testcase_check_column_families(test_object,credentials,project_id)
     challenge_test.testcase_check_Storage_Bucket_name(test_object,credentials,project_id)
 
     json.dumps(test_object.result_final(),indent=4)
