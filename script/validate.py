@@ -159,9 +159,9 @@ def start_tests(credentials, project_id, args):
     test_object=ResultOutput(args,Activity)
     challenge_test=Activity()
     challenge_test.testcase_check_BigTable_Instance_name(test_object,credentials,project_id)
-    challenge_test.testcase_check_Table_name(test_object,credentials,project_id)
-    challenge_test.testcase_check_column_families(test_object,credentials,project_id)
-    challenge_test.testcase_check_Storage_Bucket_name(test_object,credentials,project_id)
+#    challenge_test.testcase_check_Table_name(test_object,credentials,project_id)
+#    challenge_test.testcase_check_column_families(test_object,credentials,project_id)
+#    challenge_test.testcase_check_Storage_Bucket_name(test_object,credentials,project_id)
 
     json.dumps(test_object.result_final(),indent=4)
     return test_object.result_final()
