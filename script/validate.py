@@ -62,7 +62,7 @@ class Activity():
                         break
             except Exception as e:
                 is_present = False
-                test_object.update_pre_result(testcase_description,expected_result)
+            test_object.update_pre_result(testcase_description,expected_result)
             
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
@@ -106,7 +106,7 @@ class Activity():
                         break
             except Exception as e:
                 is_present = False
-                test_object.update_pre_result(testcase_description,expected_result)
+            test_object.update_pre_result(testcase_description,expected_result)
             
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
@@ -150,7 +150,7 @@ class Activity():
                         break
             except Exception as e:
                 is_present = False
-                test_object.update_pre_result(testcase_description,expected_result)
+            test_object.update_pre_result(testcase_description,expected_result)
             
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
