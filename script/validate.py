@@ -41,7 +41,6 @@ class Activity():
     def testcase_check_Table_name(self,test_object,credentials,project_id):
         testcase_description="Check BigTable Table name"
         bigtable_id = "Company Sales"
-        bigtable_id = "bigtable1"
         expected_result='UserSessions'
         try:
             is_present = False
@@ -201,11 +200,11 @@ def start_tests(credentials, project_id, args):
     
     test_object=ResultOutput(args,Activity)
     challenge_test=Activity()
-    challenge_test.testcase_check_Storage_Bucket_name(test_object,credentials,project_id)
     challenge_test.testcase_check_BigTable_Instance_name(test_object,credentials,project_id)
     challenge_test.testcase_check_Table_name(test_object,credentials,project_id)
     challenge_test.testcase_check_column_family1(test_object,credentials,project_id)
     challenge_test.testcase_check_column_family2(test_object,credentials,project_id)
+    challenge_test.testcase_check_Storage_Bucket_name(test_object,credentials,project_id)
 
     json.dumps(test_object.result_final(),indent=4)
     return test_object.result_final()
