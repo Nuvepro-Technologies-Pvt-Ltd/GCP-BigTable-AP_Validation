@@ -8,6 +8,7 @@ from google.oauth2 import service_account
 from pprint import pprint
 from google.cloud import bigtable
 from google.cloud import storage
+from google.cloud import dataflow_v1beta3
 
 class Activity():
 
@@ -32,7 +33,7 @@ class Activity():
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
             else:
-                test_object.update_result(0,expected_result,actual,"Check instance name","https://cloud.google.com/bigtable/docs/")   
+                test_object.update_result(0,expected_result,actual,"Check BigTable instance name","https://cloud.google.com/bigtable/docs/")   
 
         except Exception as e:    
             test_object.update_result(-1,expected_result,"Internal Server error","Please check with Admin","")
@@ -67,14 +68,14 @@ class Activity():
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
             else:
-                test_object.update_result(0,expected_result,actual,"Check instance name","https://cloud.google.com/bigtable/docs/")   
+                test_object.update_result(0,expected_result,actual,"Check Bigtable Table name","https://cloud.google.com/bigtable/docs/")   
 
         except Exception as e:    
             test_object.update_result(-1,expected_result,"Internal Server error","Please check with Admin","")
             test_object.eval_message["testcase_check_ServiceAccount_name"]=str(e)                
 
     def testcase_check_column_family1(self,test_object,credentials,project_id):
-        testcase_description="Check Column Family name"
+        testcase_description="Check Instances Column Family name"
         bigtable_id = "Company Sales"
         bigtable_table_id = "UserSessions"
         expected_result='Instances'
@@ -109,14 +110,14 @@ class Activity():
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
             else:
-                test_object.update_result(0,expected_result,actual,"Check instance name","https://cloud.google.com/bigtable/docs/")   
+                test_object.update_result(0,expected_result,actual,"Check Column Family name","https://cloud.google.com/bigtable/docs/")   
 
         except Exception as e:    
             test_object.update_result(-1,expected_result,"Internal Server error","Please check with Admin","")
             test_object.eval_message["testcase_check_ServiceAccount_name"]=str(e)                
 
     def testcase_check_column_family2(self,test_object,credentials,project_id):
-        testcase_description="Check Column Family name"
+        testcase_description="Check Sales Column Family name"
         bigtable_id = "Company Sales"
         bigtable_table_id = "UserSessions"
         expected_result='Sales'
@@ -151,7 +152,7 @@ class Activity():
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
             else:
-                test_object.update_result(0,expected_result,actual,"Check instance name","https://cloud.google.com/bigtable/docs/")   
+                test_object.update_result(0,expected_result,actual,"Check Column Family Name","https://cloud.google.com/bigtable/docs/")   
 
         except Exception as e:    
             test_object.update_result(-1,expected_result,"Internal Server error","Please check with Admin","")
@@ -181,7 +182,67 @@ class Activity():
             if is_present==True:
                 test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
             else:
-                test_object.update_result(0,expected_result,actual,"Check instance name","https://cloud.google.com/bigtable/docs/")   
+                test_object.update_result(0,expected_result,actual,"Check Storage Bucket name","https://cloud.google.com/bigtable/docs/")   
+
+        except Exception as e:    
+            test_object.update_result(-1,expected_result,"Internal Server error","Please check with Admin","")
+            test_object.eval_message["testcase_check_ServiceAccount_name"]=str(e)   
+
+    def testcase_check_Dataflow_Job_name(self,test_object,credentials,project_id):
+        testcase_description="Check Dataflow Job name"
+        expected_result='import-usersessions'
+        try:
+            is_present = False
+            actual = 'Dataflow Job name is not '+ expected_result
+            try:
+                client = dataflow_v1beta3.JobsV1Beta3Client(credentials=credentials)
+            
+                req = dataflow_v1beta3.ListJobsRequest(project_id = project_id) # location defaults to 'us-central1'
+            
+                for job in client.list_jobs(request=req):
+                    if job.name == expected_result:
+                        is_present=True
+                        actual=expected_result
+                        break
+                    else:
+                        actual=job.name
+            except Exception as e:
+                is_present = False
+            test_object.update_pre_result(testcase_description,expected_result)
+            if is_present==True:
+                test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
+            else:
+                test_object.update_result(0,expected_result,actual,"Check Dataflow Job name","https://cloud.google.com/bigtable/docs/")   
+
+        except Exception as e:    
+            test_object.update_result(-1,expected_result,"Internal Server error","Please check with Admin","")
+            test_object.eval_message["testcase_check_ServiceAccount_name"]=str(e)                
+
+    def testcase_check_Dataflow_Job_status(self,test_object,credentials,project_id):
+        testcase_description="Check Dataflow Job Status"
+        expected_result = 'JOB_STATE_DONE'
+        try:
+            is_present = False
+            actual = 'Dataflow Job Status is not '+ expected_result
+            try:
+                client = dataflow_v1beta3.JobsV1Beta3Client(credentials=credentials)
+            
+                req = dataflow_v1beta3.ListJobsRequest(project_id = project_id) # location defaults to 'us-central1'
+            
+                for job in client.list_jobs(request=req):
+                    if job.current_state.name == expected_result:
+                        is_present=True
+                        actual=expected_result
+                        break
+                    else:
+                        actual=job.current_state.name
+            except Exception as e:
+                is_present = False
+            test_object.update_pre_result(testcase_description,expected_result)
+            if is_present==True:
+                test_object.update_result(1,expected_result,actual,"No Comment"," Congrats! You have done it right!") 
+            else:
+                test_object.update_result(0,expected_result,actual,"Check Dataflow Job Status name","https://cloud.google.com/bigtable/docs/")   
 
         except Exception as e:    
             test_object.update_result(-1,expected_result,"Internal Server error","Please check with Admin","")
@@ -201,6 +262,8 @@ def start_tests(credentials, project_id, args):
     challenge_test.testcase_check_column_family1(test_object,credentials,project_id)
     challenge_test.testcase_check_column_family2(test_object,credentials,project_id)
     challenge_test.testcase_check_Storage_Bucket_name(test_object,credentials,project_id)
+    challenge_test.testcase_check_Dataflow_Job_name(test_object,credentials,project_id)
+    challenge_test.testcase_check_Dataflow_Job_status(test_object,credentials,project_id)
 
     json.dumps(test_object.result_final(),indent=4)
     return test_object.result_final()
