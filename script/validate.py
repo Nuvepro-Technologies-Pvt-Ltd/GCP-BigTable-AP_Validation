@@ -77,7 +77,7 @@ class Activity():
         testcase_description="Check Instances Column Family name"
         bigtable_id = "Company Sales"
         bigtable_table_id = "UserSessions"
-        expected_result='Instances'
+        expected_result='Interactions'
         try:
             is_present = False
             actual = 'Column Family names is not '+ expected_result
